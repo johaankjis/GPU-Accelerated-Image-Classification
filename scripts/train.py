@@ -141,7 +141,7 @@ def train_epoch(model, train_loader, criterion, optimizer, scaler, device):
         correct += predicted.eq(targets).sum().item()
         
         if batch_idx % 100 == 0:
-            print(f'[v0] Batch {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}, Acc: {100.*correct/total:.2f}%')
+            print(f'[] Batch {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}, Acc: {100.*correct/total:.2f}%')
     
     epoch_loss = running_loss / len(train_loader)
     epoch_acc = 100. * correct / total
@@ -175,11 +175,11 @@ def evaluate(model, test_loader, criterion, device):
 def main():
     # Check GPU availability
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f'[v0] Using device: {device}')
+    print(f'Using device: {device}')
     
     if torch.cuda.is_available():
-        print(f'[v0] GPU: {torch.cuda.get_device_name(0)}')
-        print(f'[v0] CUDA Version: {torch.version.cuda}')
+        print(f'GPU: {torch.cuda.get_device_name(0)}')
+        print(f'CUDA Version: {torch.version.cuda}')
     
     # Hyperparameters
     batch_size = 128
@@ -187,11 +187,11 @@ def main():
     learning_rate = 0.001
     
     # Data loaders
-    print('[v0] Loading CIFAR-10 dataset...')
+    print('[] Loading CIFAR-10 dataset...')
     train_loader, test_loader = get_data_loaders(batch_size=batch_size)
     
     # Model
-    print('[v0] Initializing CNN model...')
+    print('[] Initializing CNN model...')
     model = CIFAR10CNN(num_classes=10).to(device)
     
     # Loss and optimizer
@@ -203,7 +203,7 @@ def main():
     scaler = GradScaler()
     
     # Training loop
-    print('[v0] Starting training...')
+    print('[] Starting training...')
     best_acc = 0.0
     start_time = time.time()
     
@@ -217,11 +217,11 @@ def main():
         
         epoch_time = time.time() - epoch_start
         
-        print(f'\n[v0] Epoch {epoch+1}/{num_epochs}')
-        print(f'[v0] Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}%')
-        print(f'[v0] Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.2f}%')
-        print(f'[v0] Epoch Time: {epoch_time:.2f}s')
-        print(f'[v0] Learning Rate: {scheduler.get_last_lr()[0]:.6f}\n')
+        print(f'\n[] Epoch {epoch+1}/{num_epochs}')
+        print(f'[] Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}%')
+        print(f'[] Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.2f}%')
+        print(f'[] Epoch Time: {epoch_time:.2f}s')
+        print(f'[] Learning Rate: {scheduler.get_last_lr()[0]:.6f}\n')
         
         # Save best model
         if test_acc > best_acc:
@@ -232,15 +232,15 @@ def main():
                 'optimizer_state_dict': optimizer.state_dict(),
                 'accuracy': test_acc,
             }, 'best_model.pth')
-            print(f'[v0] Saved best model with accuracy: {best_acc:.2f}%')
+            print(f'[] Saved best model with accuracy: {best_acc:.2f}%')
     
     total_time = time.time() - start_time
-    print(f'\n[v0] Training completed in {total_time/60:.2f} minutes')
-    print(f'[v0] Best Test Accuracy: {best_acc:.2f}%')
+    print(f'\n[] Training completed in {total_time/60:.2f} minutes')
+    print(f'[] Best Test Accuracy: {best_acc:.2f}%')
     
     # Save final model
     torch.save(model.state_dict(), 'final_model.pth')
-    print('[v0] Final model saved')
+    print('[] Final model saved')
 
 if __name__ == '__main__':
     main()

@@ -95,16 +95,6 @@ python scripts/train.py
 - Real-time training metrics logging
 
 **Expected Output:**
-```
-[v0] Using device: cuda
-[v0] GPU: NVIDIA GeForce RTX 3080
-[v0] CUDA Version: 11.8
-[v0] Loading CIFAR-10 dataset...
-[v0] Starting training...
-[v0] Epoch 1/100
-[v0] Train Loss: 1.2345, Train Acc: 45.67%
-[v0] Test Loss: 1.1234, Test Acc: 48.23%
-```
 
 **Output Files:**
 - `best_model.pth` - Best performing model checkpoint
@@ -125,21 +115,6 @@ python scripts/inference.py
 - Model export to ONNX format
 
 **Expected Output:**
-```
-[v0] === Baseline Inference (No CUDA Streams) ===
-[v0] Accuracy: 85.42%
-[v0] Average Batch Time: 15.32 ms
-[v0] Throughput: 8352.18 images/sec
-
-[v0] === Optimized Inference (With CUDA Streams) ===
-[v0] Accuracy: 85.42%
-[v0] Average Batch Time: 12.87 ms
-[v0] Throughput: 9945.76 images/sec
-
-[v0] === Performance Improvement ===
-[v0] Inference Speedup: 16.00%
-[v0] Throughput Increase: 19.08%
-```
 
 ### Starting the Dashboard
 
